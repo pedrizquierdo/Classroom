@@ -4,7 +4,6 @@
  */
 package mx.itson.classroom.entities;
 
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,16 +13,16 @@ import javax.persistence.Id;
  *
  * @author pedrizquierdo
  */
+
 @Entity
-public class Assignment {
-    
+public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String title;
-    private String description;
-    private Date due_date;
-    
+    private String name;
+    private String email;
+    private int id_colt;
     
     /**
      * @return the id
@@ -40,47 +39,46 @@ public class Assignment {
     }
 
     /**
-     * @return the title
+     * @return the name
      */
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param title the title to set
+     * @param name the name to set
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @return the description
+     * @return the email
      */
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param description the description to set
+     * @param email the email to set
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
-     * @return the due_date
+     * @return the id_colt
      */
-    public Date getDue_date() {
-        return due_date;
+    public int getId_colt() {
+        return id_colt;
     }
 
     /**
-     * @param due_date the due_date to set
+     * @param id_colt the id_colt to set
      */
-    public void setDue_date(Date due_date) {
-        this.due_date = due_date;
+    public void setId_colt(int id_colt) {
+        this.id_colt = id_colt;
     }
-    
     
     
 }
