@@ -4,6 +4,11 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.persistence.SubmissionDAO;
+
 /**
  *
  * @author luismorellb
@@ -27,14 +32,19 @@ public class SubmissionList extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAssignment = new javax.swing.JTable();
+        tblSubmissions = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnSelect = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        tblAssignment.setModel(new javax.swing.table.DefaultTableModel(
+        tblSubmissions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -45,12 +55,12 @@ public class SubmissionList extends javax.swing.JFrame {
                 "id", "Date", "File name", "Student", "Assignment"
             }
         ));
-        jScrollPane1.setViewportView(tblAssignment);
+        jScrollPane1.setViewportView(tblSubmissions);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("SUBMISSION SECTION");
 
-        btnSelect.setText("Select submission");
+        btnSelect.setText("See Student");
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelectActionPerformed(evt);
@@ -58,6 +68,11 @@ public class SubmissionList extends javax.swing.JFrame {
         });
 
         btnAdd.setText("Add submission");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +115,37 @@ public class SubmissionList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSelectActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
+        SubmissionForm form = new SubmissionForm(this, true);
+        form.setVisible(true);
+        
+        loadSubmissions();
+        
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        loadSubmissions();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void loadSubmissions(){
+        List<Submission> submissions = SubmissionDAO.getAll();
+        DefaultTableModel modelo = (DefaultTableModel)tblSubmissions.getModel();
+        modelo.setRowCount(0);
+        
+        for(Submission s: submissions ){
+            modelo.addRow(new Object[] {
+            s.getId(),
+            s.getDate(),
+            s.getFile_name(),
+            s.getStudent().getName(),
+            s.getAssignment().getTitle()
+            });
+        }
+        tblSubmissions.removeColumn(tblSubmissions.getColumnModel().getColumn(0));
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -140,6 +186,6 @@ public class SubmissionList extends javax.swing.JFrame {
     private javax.swing.JButton btnSelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAssignment;
+    private javax.swing.JTable tblSubmissions;
     // End of variables declaration//GEN-END:variables
 }

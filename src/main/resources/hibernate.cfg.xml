@@ -20,6 +20,8 @@
         <property name="hibernate.connection.password">
             administrador
         </property>
-        <mapping class="mx.itson.zoo.entities.Assignment"/>
-        <mapping class="mx.itson.zoo.entities.Jaula"/>
+        <mapping class="mx.itson.classroom.entities.Assignment"/>
+        <mapping class="mx.itson.classroom.entities.Student"/>
+        <mapping class="mx.itson.classroom.entities.Submission"/>       
     </session-factory>
+</hibernate-configuration>   

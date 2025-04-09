@@ -4,6 +4,11 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.persistence.SubmissionDAO;
+
 /**
  *
  * @author luismorellb
@@ -29,10 +34,15 @@ public class AssignmentList extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnSelect = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAssignment = new javax.swing.JTable();
+        tblAssignments = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("ASSIGNMENTS SECTION");
@@ -44,7 +54,7 @@ public class AssignmentList extends javax.swing.JFrame {
             }
         });
 
-        tblAssignment.setModel(new javax.swing.table.DefaultTableModel(
+        tblAssignments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -55,9 +65,14 @@ public class AssignmentList extends javax.swing.JFrame {
                 "id", "Title", "Description", "Due date"
             }
         ));
-        jScrollPane1.setViewportView(tblAssignment);
+        jScrollPane1.setViewportView(tblAssignments);
 
         btnAdd.setText("Add asignment");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +115,38 @@ public class AssignmentList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSelectActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        
+        AssignmentForm form = new AssignmentForm(this, true);
+        form.setVisible(true);
+        
+        loadAssignments();
+        
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        loadAssignments();
+        
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void loadAssignments(){
+        List<Submission> submissions = SubmissionDAO.getAll();
+        DefaultTableModel modelo = (DefaultTableModel)tblAssignments.getModel();
+        modelo.setRowCount(0);
+        
+        for(Submission s: submissions ){
+            modelo.addRow(new Object[] {
+            s.getAssignment().getId(),
+            s.getAssignment().getTitle(),
+            s.getAssignment().getDescription(),
+            s.getDate()
+            });
+        }
+        tblAssignments.removeColumn(tblAssignments.getColumnModel().getColumn(0));
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -140,6 +187,6 @@ public class AssignmentList extends javax.swing.JFrame {
     private javax.swing.JButton btnSelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAssignment;
+    private javax.swing.JTable tblAssignments;
     // End of variables declaration//GEN-END:variables
 }

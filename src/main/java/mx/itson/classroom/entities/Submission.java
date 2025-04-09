@@ -5,10 +5,13 @@
 package mx.itson.classroom.entities;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -23,7 +26,11 @@ public class Submission {
     private int id;
     private Date date;
     private String file_name;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_student")
     private Student student;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_assignment")
     private Assignment assignment;
     /**
      * @return the id
