@@ -4,6 +4,15 @@
  */
 package mx.itson.classroom.ui;
 
+import static java.lang.Integer.parseInt;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import mx.itson.classroom.entities.Student;
+import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.persistence.SubmissionDAO;
+
 /**
  *
  * @author luismorellb
@@ -45,6 +54,11 @@ public class StudentForm extends javax.swing.JDialog {
         jLabel4.setText("id_colt:");
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("ADD NEW STUDENT");
@@ -91,6 +105,38 @@ public class StudentForm extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+        try{
+        
+    
+        Submission s = new Submission();
+        
+        Student st = new Student();
+        
+        st.setName(txtName.getText());
+        st.setEmail(txtEmail.getText());
+        st.setId_colt(parseInt(txtIdColt.getText()));
+        s.setStudent(st);
+        
+   
+    
+    boolean result = SubmissionDAO.save(s);
+
+    
+    if (result) {
+        JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+    } else {    
+        JOptionPane.showMessageDialog(this, "Un error a ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    } catch(Exception ex){
+        System.err.println("Ocurrio un error inesperado: " + ex.getMessage());
+    }
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments

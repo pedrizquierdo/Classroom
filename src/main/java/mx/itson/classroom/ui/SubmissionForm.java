@@ -4,6 +4,16 @@
  */
 package mx.itson.classroom.ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import mx.itson.classroom.entities.Assignment;
+import mx.itson.classroom.entities.Student;
+import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.persistence.SubmissionDAO;
+
 /**
  *
  * @author luismorellb
@@ -16,8 +26,30 @@ public class SubmissionForm extends javax.swing.JDialog {
     public SubmissionForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        Thread thread = new Thread(() -> {
+            loadStudents();
+            loadAssignments();
+        });
+        thread.start();
     }
 
+        public void loadStudents(){
+        List<Submission> submissions = SubmissionDAO.getAll();
+        for (Submission s : submissions) {
+            cmbStudents.addItem(s.getStudent().getName());
+            
+        }
+    }
+        
+    public void loadAssignments(){
+        List<Submission> submissions = SubmissionDAO.getAll();
+        for (Submission s : submissions) {
+            cmbAssignments.addItem(s.getAssignment().getTitle());
+            
+        }
+    }    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,30 +60,33 @@ public class SubmissionForm extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         txtFileName = new javax.swing.JTextField();
-        txtStudent = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtAssignment = new javax.swing.JTextField();
+        cmbStudents = new javax.swing.JComboBox<>();
+        cmbAssignments = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("ADD NEW SUBMISSION");
 
-        jLabel2.setText("Date:");
-
         jLabel3.setText("File name:");
 
         jLabel4.setText("Student:");
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Assignment:");
+
+        cmbStudents.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,15 +98,12 @@ public class SubmissionForm extends javax.swing.JDialog {
                     .addComponent(btnSave)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
-                        .addComponent(txtAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(txtDate)
-                            .addComponent(txtFileName)
-                            .addComponent(txtStudent, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE))))
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel1)
+                        .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbAssignments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -80,28 +112,55 @@ public class SubmissionForm extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
                 .addComponent(jLabel3)
-                .addGap(15, 15, 15)
-                .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbAssignments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
                 .addComponent(btnSave)
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+        try{
+        
+    
+        Submission s = new Submission();
+        
+        Date date = new Date();
+        s.setDate(date);
+        s.setFile_name(txtFileName.getText());
+        Student studentSelection = (Student) cmbStudents.getSelectedItem();
+        s.setStudent(studentSelection);
+        Assignment assignmentSelection = (Assignment) cmbAssignments.getSelectedItem();
+        s.setAssignment(assignmentSelection);
+    
+    boolean result = SubmissionDAO.save(s);
+
+    
+    if (result) {
+        JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+    } else {    
+        JOptionPane.showMessageDialog(this, "Un error a ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    } catch(Exception ex){
+        System.err.println("Ocurrio un error inesperado: " + ex.getMessage());
+    }
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,14 +206,12 @@ public class SubmissionForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cmbAssignments;
+    private javax.swing.JComboBox<String> cmbStudents;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtAssignment;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtFileName;
-    private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
 }

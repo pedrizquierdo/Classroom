@@ -110,9 +110,29 @@ public class AssignmentForm extends javax.swing.JDialog {
         try{
         
     
+        Submission s = new Submission();
         
+        Assignment a = new Assignment();
+        
+        a.setTitle(txtTitle.getText());
+        a.setDescription(txtDescription.getText());
+        String txtDate = txtDueDate.getText();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = dateFormat.parse(txtDate);
+        a.setDue_date(date);
+        s.setAssignment(a);
+        
+   
+    
+    boolean result = SubmissionDAO.save(s);
 
     
+    if (result) {
+        JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+    } else {    
+        JOptionPane.showMessageDialog(this, "Un error a ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+    }
     
     } catch(Exception ex){
         System.err.println("Ocurrio un error inesperado: " + ex.getMessage());

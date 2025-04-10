@@ -4,6 +4,11 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.persistence.SubmissionDAO;
+
 /**
  *
  * @author luismorellb
@@ -27,14 +32,19 @@ public class StudentList extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAssignment = new javax.swing.JTable();
+        tblStudents = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        tblAssignment.setModel(new javax.swing.table.DefaultTableModel(
+        tblStudents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -45,9 +55,14 @@ public class StudentList extends javax.swing.JFrame {
                 "id", "Name", "Email", "id colt"
             }
         ));
-        jScrollPane1.setViewportView(tblAssignment);
+        jScrollPane1.setViewportView(tblStudents);
 
         btnAdd.setText("Add student");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("STUDENTS SECTION");
@@ -89,6 +104,37 @@ public class StudentList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    
+        loadStudents();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
+        StudentForm form = new StudentForm(this, true);
+        form.setVisible(true);
+        
+        loadStudents();
+        
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    
+    private void loadStudents(){
+        List<Submission> submissions = SubmissionDAO.getAll();
+        DefaultTableModel modelo = (DefaultTableModel)tblStudents.getModel();
+        modelo.setRowCount(0);
+        
+        for(Submission s: submissions ){
+            modelo.addRow(new Object[] {
+            s.getStudent().getId(),
+            s.getStudent().getName(),
+            s.getStudent().getEmail(),
+            s.getStudent().getId_colt()
+            });
+        }
+        tblStudents.removeColumn(tblStudents.getColumnModel().getColumn(0));
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -129,6 +175,6 @@ public class StudentList extends javax.swing.JFrame {
     private javax.swing.JButton btnSelect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAssignment;
+    private javax.swing.JTable tblStudents;
     // End of variables declaration//GEN-END:variables
 }

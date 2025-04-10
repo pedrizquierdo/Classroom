@@ -80,5 +80,10 @@ public class Student {
         this.id_colt = id_colt;
     }
     
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
     
 }
