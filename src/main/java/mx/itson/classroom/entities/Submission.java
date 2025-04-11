@@ -14,7 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
- *
+ * Class that represents a submission made by a student for a specific assignment.
+ * Includes the associated assignment, student, submission date, etc.
+ * 
  * @author pedrizquierdo
  */
 
@@ -32,76 +34,75 @@ public class Submission {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_assignment")
     private Assignment assignment;
+    
     /**
-     * @return the id
+     * @return the id of the submission
      */
     public int getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * @param id the id of the submission to set
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * @return the date
+     * @return the date of the submission
      */
     public Date getDate() {
         return date;
     }
 
     /**
-     * @param date the date to set
+     * @param date the date of the submission to set
      */
     public void setDate(Date date) {
         this.date = date;
     }
 
     /**
-     * @return the file_name
+     * @return the file_name of the submission
      */
     public String getFile_name() {
         return file_name;
     }
 
     /**
-     * @param file_name the file_name to set
+     * @param file_name the file_name of the submission to set
      */
     public void setFile_name(String file_name) {
         this.file_name = file_name;
     }
 
     /**
-     * @return the student
+     * @return the student of the submission
      */
     public Student getStudent() {
         return student;
     }
 
     /**
-     * @param student the student to set
+     * @param student the student of the submission to set
      */
     public void setStudent(Student student) {
         this.student = student;
     }
 
     /**
-     * @return the assignment
+     * @return the assignment of the submission
      */
     public Assignment getAssignment() {
         return assignment;
     }
 
     /**
-     * @param assignment the assignment to set
+     * @param assignment the assignment of the submission to set
      */
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
     }
-    
-    
     
 }
