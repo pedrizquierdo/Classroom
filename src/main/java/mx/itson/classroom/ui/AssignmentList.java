@@ -4,10 +4,12 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.classroom.entities.Assignment;
+import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.AssignmentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
@@ -24,7 +26,7 @@ public class AssignmentList extends javax.swing.JFrame {
         initComponents();
     }
     
-    
+    List<Assignment> assignments = new ArrayList<>();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,7 +202,7 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         
-        AssignmentForm form = new AssignmentForm(this, true);
+        AssignmentForm form = new AssignmentForm(this, true, null);
         form.setVisible(true);
         
         loadAssignments();
@@ -245,19 +247,26 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        AssignmentForm form = new AssignmentForm(this, true);
-                form.setVisible(true);
+          
+        int selectedRow = tblAssignments.getSelectedRow();
 
-                    loadAssignments();
+    if (selectedRow >= 0) {
+        Assignment selectedAssignment = assignments.get(selectedRow); // desde lista auxiliar
+        AssignmentForm form = new AssignmentForm(this, true, selectedAssignment);
+        form.setVisible(true);
+        loadAssignments();
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Submission para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void loadAssignments(){
         List<Assignment> assignments = AssignmentDAO.getAll();
-        DefaultTableModel modelo = (DefaultTableModel)tblAssignments.getModel();
-        modelo.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel)tblAssignments.getModel();
+        model.setRowCount(0);
         
-        for(Assignment a: assignments ){
-            modelo.addRow(new Object[] {
+        for(Assignment a : assignments ){
+            model.addRow(new Object[] {
             a.getId(),
             a.getTitle(),
             a.getDescription(),
