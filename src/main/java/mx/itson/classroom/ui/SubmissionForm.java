@@ -6,9 +6,11 @@ package mx.itson.classroom.ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import mx.itson.classroom.entities.Assignment;
 import mx.itson.classroom.entities.Student;
 import mx.itson.classroom.entities.Submission;
@@ -22,19 +24,28 @@ import mx.itson.classroom.persistence.SubmissionDAO;
  */
 public class SubmissionForm extends javax.swing.JDialog {
 
+   private Submission submission = null;
+
+    
+    List<Submission> submissions = new ArrayList<>();
     /**
      * Creates new form SubmissionForm
      */
-    public SubmissionForm(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        Thread thread = new Thread(() -> {
-            loadStudents();
-            loadAssignments();
-        });
-        thread.start();
+    public SubmissionForm(java.awt.Frame parent, boolean modal, Submission submission) {
+    super(parent, modal);
+    initComponents();
+
+    Thread thread = new Thread(() -> {
+        loadStudents();
+        loadAssignments();
+    });
+    thread.start();
+    this.submission = submission;
+
+    if (submission != null) {
+        loadSubmission(submission);
     }
+}
 
         public void loadStudents(){
         List<Student> students = StudentDAO.getAll();
@@ -51,7 +62,15 @@ public class SubmissionForm extends javax.swing.JDialog {
             
         }
     }    
-        
+    
+    public void loadSubmission(Submission s) {
+    txtFileName.setText(s.getFile_name());
+    cmbStudents.setSelectedItem(s.getStudent());
+    cmbAssignments.setSelectedItem(s.getAssignment());
+}
+       
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -135,31 +154,31 @@ public class SubmissionForm extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        try{
-        
-    
-        Submission s = new Submission();
-        
-        Date date = new Date();
-        s.setDate(date);
-        s.setFile_name(txtFileName.getText());
-        Student studentSelection = (Student) cmbStudents.getSelectedItem();
-        s.setStudent(studentSelection);
-        Assignment assignmentSelection = (Assignment) cmbAssignments.getSelectedItem();
-        s.setAssignment(assignmentSelection);
-    
-    boolean result = SubmissionDAO.save(s);
+        try {
+        if (submission == null) {
+            submission = new Submission(); // si es nueva, la creamos
+            submission.setDate(new Date()); // la fecha solo al crear
+        }
 
-    
-    if (result) {
-        JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-    } else {    
-        JOptionPane.showMessageDialog(this, "Un error a ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    } catch(Exception ex){
-        System.err.println("Ocurrio un error inesperado: " + ex.getMessage());
+        submission.setFile_name(txtFileName.getText());
+        Student studentSelection = (Student) cmbStudents.getSelectedItem();
+        submission.setStudent(studentSelection);
+        Assignment assignmentSelection = (Assignment) cmbAssignments.getSelectedItem();
+        submission.setAssignment(assignmentSelection);
+
+        boolean result = (submission.getId() == 0) 
+            ? SubmissionDAO.save(submission) 
+            : SubmissionDAO.edit(submission);
+
+        if (result) {
+            JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Un error ha ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception ex) {
+        System.err.println("Ocurrió un error inesperado: " + ex.getMessage());
     }
         
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -194,7 +213,7 @@ public class SubmissionForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SubmissionForm dialog = new SubmissionForm(new javax.swing.JFrame(), true);
+                SubmissionForm dialog = new SubmissionForm(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -4,6 +4,7 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.Icon;
@@ -27,6 +28,8 @@ public class SubmissionList extends javax.swing.JFrame {
         initComponents();
     }
 
+    List<Submission> submissions = new ArrayList<>();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,7 +199,7 @@ public class SubmissionList extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        SubmissionForm form = new SubmissionForm(this, true);
+        SubmissionForm form = new SubmissionForm(this, true, null);
         form.setVisible(true);
         
         loadSubmissions();
@@ -242,28 +245,35 @@ public class SubmissionList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        SubmissionForm form = new SubmissionForm(this, true);
-                form.setVisible(true);
+        
+        int selectedRow = tblSubmissions.getSelectedRow();
 
-                    loadSubmissions();
+    if (selectedRow >= 0) {
+        Submission selectedSubmission = submissions.get(selectedRow); // desde lista auxiliar
+        SubmissionForm form = new SubmissionForm(this, true, selectedSubmission);
+        form.setVisible(true);
+        loadSubmissions();
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Submission para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void loadSubmissions(){
-        List<Submission> submissions = SubmissionDAO.getAll();
-        DefaultTableModel modelo = (DefaultTableModel)tblSubmissions.getModel();
-        modelo.setRowCount(0);
+    public void loadSubmissions() {
         
-        for(Submission s: submissions ){
-            modelo.addRow(new Object[] {
+    submissions = SubmissionDAO.getAll(); // guarda la lista real
+
+    DefaultTableModel model = (DefaultTableModel)tblSubmissions.getModel();
+    model.setRowCount(0); // limpiar
+
+    for (Submission s : submissions) {
+        model.addRow(new Object[]{
             s.getId(),
-            s.getDate(),
             s.getFile_name(),
-            s.getStudent().getName(),
+            s.getStudent().getName(), // o como quieras mostrarlo
             s.getAssignment().getTitle()
-            });
-        }
-        
+        });
     }
+    }   
     
     /**
      * @param args the command line arguments

@@ -82,7 +82,7 @@ public class StudentForm extends javax.swing.JDialog {
                         .addComponent(txtName)
                         .addComponent(txtEmail)
                         .addComponent(txtIdColt, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
