@@ -237,13 +237,13 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
             Assignment a = new Assignment();
                 a.setId(idAssignment);
         
-        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el registro?", "Eliminar registro", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this record?", "Delete record", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
         
         if (AssignmentDAO.delete(a)) {
-            JOptionPane.showMessageDialog(this, "El registro se eliminó con éxito", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The record was succesfully deleted", "Record deleted", JOptionPane.INFORMATION_MESSAGE);
             loadAssignments();
         } else {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error has occurred", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -258,7 +258,7 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
         form.setVisible(true);
         loadAssignments();
     } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Assignment para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Select an Assignment to edit.", "Nothing selected", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnEditActionPerformed
 

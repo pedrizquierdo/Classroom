@@ -234,13 +234,13 @@ public class StudentList extends javax.swing.JFrame {
             Student s = new Student();
                 s.setId(idStudent);
         
-        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el registro?", "Eliminar registro", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this record", "Delete record", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
         
         if (StudentDAO.delete(s)) {
-            JOptionPane.showMessageDialog(this, "El registro se eliminó con éxito", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The record was succesfully deleted", "Record deleted", JOptionPane.INFORMATION_MESSAGE);
             loadStudents();
         } else {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error has occurred", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -254,7 +254,7 @@ public class StudentList extends javax.swing.JFrame {
         form.setVisible(true);
         loadStudents();
     } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Submission para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Select a Student to edit.", "Nothing selected", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnEditActionPerformed
 

@@ -236,13 +236,13 @@ public class SubmissionList extends javax.swing.JFrame {
             Submission s = new Submission();
                 s.setId(idSubmission);
         
-        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el registro?", "Eliminar registro", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this record?", "Delete record", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
         
         if (SubmissionDAO.delete(s)) {
-            JOptionPane.showMessageDialog(this, "El registro se eliminó con éxito", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The record was succesfully deleted", "Record deleted", JOptionPane.INFORMATION_MESSAGE);
             loadSubmissions();
         } else {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error has occurred", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         }
         
@@ -259,7 +259,7 @@ public class SubmissionList extends javax.swing.JFrame {
         form.setVisible(true);
         loadSubmissions();
     } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Submission para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Select a Submission to edit.", "Nothing selected", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnEditActionPerformed
 

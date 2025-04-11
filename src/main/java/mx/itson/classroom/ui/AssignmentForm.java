@@ -145,13 +145,13 @@ public class AssignmentForm extends javax.swing.JDialog {
                 : AssignmentDAO.edit(assignment);
 
         if (result) {
-            JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The registration has been successfully completed", "Record saved", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Un error ha ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error occurred while trying to register", "Save error", JOptionPane.ERROR_MESSAGE);
         }
     } catch(Exception ex) {
-        JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "An unexpected has error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
         
     }//GEN-LAST:event_btnSaveActionPerformed

@@ -173,14 +173,14 @@ public class SubmissionForm extends javax.swing.JDialog {
             : SubmissionDAO.edit(submission);
 
         if (result) {
-            JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The registration has been successfully completed", "Record saved", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Un error ha ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "An error occurred while trying to register", "Save error", JOptionPane.ERROR_MESSAGE);
         }
 
     } catch (Exception ex) {
-        System.err.println("Ocurrió un error inesperado: " + ex.getMessage());
+        System.err.println("An unexpected error has occurred: " + ex.getMessage());
     }
         
     }//GEN-LAST:event_btnSaveActionPerformed
