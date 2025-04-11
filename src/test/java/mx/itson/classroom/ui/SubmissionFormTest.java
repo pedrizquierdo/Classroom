@@ -38,7 +38,7 @@ public class SubmissionFormTest {
     }
 
     /**
-     * Test of loadStudents method, of class SubmissionForm.
+     * test of the method for loading the student table of class submissionForm
      */
     @Test
     public void testLoadStudents() {
@@ -49,7 +49,7 @@ public class SubmissionFormTest {
     }
 
     /**
-     * Test of loadAssignments method, of class SubmissionForm.
+     * test of the method for loading the assignment table of class submissionForm
      */
     @Test
     public void testLoadAssignments() {
@@ -60,7 +60,7 @@ public class SubmissionFormTest {
     }
 
     /**
-     * Test of loadSubmission method, of class SubmissionForm.
+     * test the method for loading the submissions table of class SubmissionForm.
      */
     @Test
     public void testLoadSubmission() {
@@ -72,7 +72,7 @@ public class SubmissionFormTest {
     }
 
     /**
-     * Test of main method, of class SubmissionForm.
+     * Test the Main method of the SubmissionForm
      */
     @Test
     public void testMain() {

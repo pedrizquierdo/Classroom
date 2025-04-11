@@ -37,7 +37,7 @@ public class AssignmentFormTest {
     }
 
     /**
-     * Test of main method, of class AssignmentForm.
+     * Test of main method of class AssignmentForm.
      */
     @Test
     public void testMain() {

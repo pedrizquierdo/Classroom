@@ -37,7 +37,7 @@ public class SubmissionListTest {
     }
 
     /**
-     * Test of loadSubmissions method, of class SubmissionList.
+     * test the method for loading the submissions table of class SubmissionList.
      */
     @Test
     public void testLoadSubmissions() {
@@ -48,7 +48,7 @@ public class SubmissionListTest {
     }
 
     /**
-     * Test of main method, of class SubmissionList.
+     * Test the Main method of the SubmissionList
      */
     @Test
     public void testMain() {

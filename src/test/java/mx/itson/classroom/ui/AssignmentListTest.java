@@ -37,7 +37,7 @@ public class AssignmentListTest {
     }
 
     /**
-     * Test of main method, of class AssignmentList.
+     * Test of main method of class AssignmentList.
      */
     @Test
     public void testMain() {

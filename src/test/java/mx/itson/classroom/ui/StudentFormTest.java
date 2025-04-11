@@ -38,7 +38,7 @@ public class StudentFormTest {
     }
 
     /**
-     * Test of loadStudent method, of class StudentForm.
+     * Test of the Method to load the student table
      */
     @Test
     public void testLoadStudent() {
@@ -50,7 +50,7 @@ public class StudentFormTest {
     }
 
     /**
-     * Test of main method, of class StudentForm.
+     * Test the Main method of the StudentForm
      */
     @Test
     public void testMain() {
