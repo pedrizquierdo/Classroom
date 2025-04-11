@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
+ * Class that represents a student in the system.
+ * Contains personal information such as name and email.
+ * 
  * @author pedrizquierdo
  */
 
@@ -29,62 +31,59 @@ public class Student {
     private int id_colt;
     
     /**
-     * @return the id
+     * @return the id of the student
      */
     public int getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * @param id the id of the student to set
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * @return the name
+     * @return the name of the student
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name the name to set
+     * @param name the name of the student to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return the email
+     * @return the email of the student
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * @param email the email to set
+     * @param email the email of the student to set
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * @return the id_colt
+     * @return the id_colt of the student
      */
     public int getId_colt() {
         return id_colt;
     }
 
     /**
-     * @param id_colt the id_colt to set
+     * @param id_colt the id_colt of the student to set
      */
     public void setId_colt(int id_colt) {
         this.id_colt = id_colt;
     }
-    
-    
-    
     
 }

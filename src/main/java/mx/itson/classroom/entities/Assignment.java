@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
+ * Class that represents an assignment given to students.
+ * Contains information such as title, description, and due date.
+ * 
  * @author pedrizquierdo
  */
 @Entity
@@ -31,61 +33,59 @@ public class Assignment {
     
     
     /**
-     * @return the id
+     * @return the id of the assignment
      */
     public int getId() {
         return id;
     }
 
     /**
-     * @param id the id to set
+     * @param id the id of the assignment to set
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * @return the title
+     * @return the title of the assignment
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @param title the title to set
+     * @param title the title of the assignment to set
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * @return the description
+     * @return the description of the assignment
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @param description the description to set
+     * @param description the description of the assignment to set
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * @return the due_date
+     * @return the due_date of the assignment
      */
     public Date getDue_date() {
         return due_date;
     }
 
     /**
-     * @param due_date the due_date to set
+     * @param due_date the due_date of the assignment to set
      */
     public void setDue_date(Date due_date) {
         this.due_date = due_date;
     }
-    
-    
     
 }
