@@ -158,8 +158,8 @@ public class SubmissionForm extends javax.swing.JDialog {
 
         try {
         if (submission == null) {
-            submission = new Submission(); // si es nueva, la creamos
-            submission.setDate(new Date()); // la fecha solo al crear
+            submission = new Submission();
+            submission.setDate(new Date()); 
         }
 
         submission.setFile_name(txtFileName.getText());

@@ -185,18 +185,18 @@ public class StudentList extends javax.swing.JFrame {
         return;
     }
 
-    // Convertir la fila seleccionada en un índice de modelo
+    
     int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
     DefaultTableModel model = (DefaultTableModel) tblStudents.getModel();
 
-    // Obtener el ID del estudiante seleccionado y su nombre
-    int studentId = (int) model.getValueAt(modelRow, 0); // ID del estudiante
-    String studentName = (String) model.getValueAt(modelRow, 1); // Nombre del estudiante
+    
+    int studentId = (int) model.getValueAt(modelRow, 0); 
+    String studentName = (String) model.getValueAt(modelRow, 1); 
 
-    // Obtener las submissions realizadas por este estudiante
+    
     List<Object[]> submissions = SubmissionDAO.getSubmissionsByStudent(studentId);
 
-    // Construir el mensaje con la información de las submissions
+    
     StringBuilder message = new StringBuilder();
     message.append("Student: ").append(studentName).append("\n\n");
 
@@ -205,13 +205,13 @@ public class StudentList extends javax.swing.JFrame {
     } else {
         message.append("Assignments Submitted:\n");
         for (Object[] submission : submissions) {
-            message.append("Assignment: ").append(submission[0]) // Título del assignment
-                    .append(" | File Name: ").append(submission[1]) // file_name
+            message.append("Assignment: ").append(submission[0]) 
+                    .append(" | File Name: ").append(submission[1]) 
                     .append("\n");
         }
     }
 
-    // Mostrar el mensaje en un JOptionPane
+    
     JOptionPane.showMessageDialog(this, message.toString(), "Student Submission Details", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_btnSelectActionPerformed
@@ -249,7 +249,7 @@ public class StudentList extends javax.swing.JFrame {
         int selectedRow = tblStudents.getSelectedRow();
 
     if (selectedRow >= 0) {
-        Student selectedStudent = students.get(selectedRow); // desde lista auxiliar
+        Student selectedStudent = students.get(selectedRow); 
         StudentForm form = new StudentForm(this, true, selectedStudent);
         form.setVisible(true);
         loadStudents();

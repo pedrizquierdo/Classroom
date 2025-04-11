@@ -172,29 +172,29 @@ public class SubmissionList extends javax.swing.JFrame {
         return;
     }
 
-    // Convertir la fila seleccionada en un índice de modelo
+    
     int modelRow = tblSubmissions.convertRowIndexToModel(selectedRow);
     DefaultTableModel model = (DefaultTableModel) tblSubmissions.getModel();
 
-    // Obtener los datos de la fila seleccionada
-    int submissionId = (int) model.getValueAt(modelRow, 0); // ID de la submission
-    Date submissionDate = (Date) model.getValueAt(modelRow, 1); // Fecha de la submission
-    String assignmentTitle = (String) model.getValueAt(modelRow, 4); // Título del assignment
+    
+    int submissionId = (int) model.getValueAt(modelRow, 0); 
+    Date submissionDate = (Date) model.getValueAt(modelRow, 1); 
+    String assignmentTitle = (String) model.getValueAt(modelRow, 4); 
 
-    // Obtener el assignment relacionado con esta submission
-    Assignment assignment = SubmissionDAO.getAssignmentBySubmission(submissionId); // Asegúrate de que este método esté disponible
+    
+    Assignment assignment = SubmissionDAO.getAssignmentBySubmission(submissionId); 
 
-    // Obtener la fecha límite del assignment
+    
     Date dueDate = assignment.getDue_date();
 
-    // Verificar si la submission fue entregada a tiempo
+    
     boolean isOnTime = !submissionDate.after(dueDate);
 
-    // Crear el mensaje a mostrar
+   
     String message = (isOnTime) ? "The submission for \"" + assignmentTitle + "\" was delivered on time."
                                 : "The submission for \"" + assignmentTitle + "\" was delivered late.";
 
-    // Mostrar el mensaje en un JOptionPane con el icono de reloj
+    
     JOptionPane.showMessageDialog(this, message, "Submission Status", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_btnSelectActionPerformed
@@ -254,7 +254,7 @@ public class SubmissionList extends javax.swing.JFrame {
         int selectedRow = tblSubmissions.getSelectedRow();
 
     if (selectedRow >= 0) {
-        Submission selectedSubmission = submissions.get(selectedRow); // desde lista auxiliar
+        Submission selectedSubmission = submissions.get(selectedRow); 
         SubmissionForm form = new SubmissionForm(this, true, selectedSubmission);
         form.setVisible(true);
         loadSubmissions();
@@ -265,17 +265,17 @@ public class SubmissionList extends javax.swing.JFrame {
 
     public void loadSubmissions() {
         
-    submissions = SubmissionDAO.getAll(); // guarda la lista real
+    submissions = SubmissionDAO.getAll(); 
 
     DefaultTableModel model = (DefaultTableModel)tblSubmissions.getModel();
-    model.setRowCount(0); // limpiar
+    model.setRowCount(0); 
 
     for (Submission s : submissions) {
         model.addRow(new Object[]{
             s.getId(),
             s.getDate(),
             s.getFile_name(),
-            s.getStudent().getName(), // o como quieras mostrarlo
+            s.getStudent().getName(),
             s.getAssignment().getTitle()
                 
         });

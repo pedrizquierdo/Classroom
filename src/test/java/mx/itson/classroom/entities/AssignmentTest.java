@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class AssignmentTest {
     
-    public AssignmentTest() {
-    }
+   
+    
     
     @BeforeAll
     public static void setUpClass() {
@@ -152,5 +152,6 @@ public class AssignmentTest {
         instance.setDue_date(due_date);
         
     }
+    
     
 }

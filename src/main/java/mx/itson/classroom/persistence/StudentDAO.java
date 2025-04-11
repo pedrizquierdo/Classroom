@@ -20,6 +20,13 @@ import org.hibernate.Session;
  */
 public class StudentDAO {
     
+    
+    /**
+     * Retrieves all students from the database.
+     *
+     * @return a list of all Student objects found in the database;
+     *         returns an empty list if none are found or if an error occurs.
+     */
     public static List<Student> getAll(){
         List<Student> students = new ArrayList<>();
         try{
@@ -36,6 +43,13 @@ public class StudentDAO {
         return students;
     }
     
+    /**
+     * Saves a new student to the database.
+     *
+     * @param s the Student object to save.
+     * @return true if the operation was successful (i.e., the student's ID is not 0 after saving),
+     *         false otherwise.
+     */
     public static boolean save(Student s) {
         boolean result = false;
         try{
@@ -52,6 +66,12 @@ public class StudentDAO {
         return result;
     }
     
+    /**
+     * Deletes an existing student from the database.
+     *
+     * @param s the Student object to delete.
+     * @return true if the deletion was successful, false otherwise.
+     */
     public static boolean delete(Student s) {
     boolean result = false;
     try {
@@ -68,6 +88,12 @@ public class StudentDAO {
     return result;
 }
 
+    /**
+     * Updates the data of an existing student in the database.
+     *
+     * @param s the Student object with updated information.
+     * @return true if the update was successful, false otherwise.
+     */
     public static boolean edit(Student s) {
     boolean result = false;
     try {

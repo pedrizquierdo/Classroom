@@ -20,6 +20,11 @@ import org.hibernate.Session;
  */
 public class AssignmentDAO {
     
+    /**
+     * Retrieves all Assignment records from the database.
+    *
+    * @return a list of Assignment objects. Returns an empty list if no records are found or an error occurs.
+    */
     public static List<Assignment> getAll(){
         List<Assignment> assignments = new ArrayList<>();
         try{
@@ -36,6 +41,13 @@ public class AssignmentDAO {
         return assignments;
     }
     
+    
+    /**
+    * Saves a new Assignment record into the database.
+    *
+    * @param a the Assignment object to be saved.
+    * @return true if the assignment was successfully saved and assigned a non-zero ID; false otherwise.
+    */
     public static boolean save(Assignment a) {
         boolean result = false;
         try{
@@ -52,6 +64,12 @@ public class AssignmentDAO {
         return result;
     }
 
+    /**
+    * Deletes an existing Assignment record from the database.
+     *
+    * @param a the Assignment object to be deleted.
+    * @return true if the assignment was successfully deleted; false otherwise.
+    */
      public static boolean delete(Assignment a) {
     boolean result = false;
     try {
@@ -68,6 +86,12 @@ public class AssignmentDAO {
     return result;
 }
 
+     /**
+    * Updates an existing Assignment record in the database.
+    *
+    * @param a the Assignment object with updated values.
+    * @return true if the assignment was successfully updated; false otherwise.
+     */
     public static boolean edit(Assignment a) {
     boolean result = false;
     try {

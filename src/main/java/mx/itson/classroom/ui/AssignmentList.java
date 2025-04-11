@@ -177,13 +177,13 @@ public class AssignmentList extends javax.swing.JFrame {
         int assignmentId = (int) model.getValueAt(modelRow, 0);
         String assignmentTitle = (String) model.getValueAt(modelRow, 1);
 
-        // Obtener la cantidad de submissions
+        
         int count = SubmissionDAO.countByAssignment(assignmentId);
 
-        // Obtener los nombres de los estudiantes
+        
         List<String> studentNames = SubmissionDAO.getStudentNamesByAssignment(assignmentId);
 
-        // Construir el mensaje
+        
         StringBuilder message = new StringBuilder();
         message.append("Assignment \"").append(assignmentTitle).append("\" has ").append(count).append(" submission(s).\n\n");
                
@@ -197,7 +197,7 @@ public class AssignmentList extends javax.swing.JFrame {
     }
 }
 
-// Mostrar el mensaje
+
 JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_btnSelectActionPerformed
@@ -253,7 +253,7 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
         int selectedRow = tblAssignments.getSelectedRow();
 
     if (selectedRow >= 0) {
-        Assignment selectedAssignment = assignments.get(selectedRow); // desde lista auxiliar
+        Assignment selectedAssignment = assignments.get(selectedRow); 
         AssignmentForm form = new AssignmentForm(this, true, selectedAssignment);
         form.setVisible(true);
         loadAssignments();
