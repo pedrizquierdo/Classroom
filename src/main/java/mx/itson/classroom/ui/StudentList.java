@@ -4,10 +4,12 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.classroom.entities.Student;
+import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.StudentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
@@ -23,6 +25,9 @@ public class StudentList extends javax.swing.JFrame {
     public StudentList() {
         initComponents();
     }
+    
+    List<Student> students = StudentDAO.getAll(); 
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,7 +168,7 @@ public class StudentList extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        StudentForm form = new StudentForm(this, true);
+        StudentForm form = new StudentForm(this, true, null);
         form.setVisible(true);
         
         loadStudents();
@@ -240,10 +245,16 @@ public class StudentList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        StudentForm form = new StudentForm(this, true);
-                form.setVisible(true);
+        int selectedRow = tblStudents.getSelectedRow();
 
-                    loadStudents();
+    if (selectedRow >= 0) {
+        Student selectedStudent = students.get(selectedRow); // desde lista auxiliar
+        StudentForm form = new StudentForm(this, true, selectedStudent);
+        form.setVisible(true);
+        loadStudents();
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una Submission para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void loadStudents(){
