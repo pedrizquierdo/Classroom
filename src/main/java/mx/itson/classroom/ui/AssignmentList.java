@@ -14,7 +14,8 @@ import mx.itson.classroom.persistence.AssignmentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
 /**
- *
+ * This class extends and shows assignment data in a table.
+ * 
  * @author luismorellb
  */
 public class AssignmentList extends javax.swing.JFrame {

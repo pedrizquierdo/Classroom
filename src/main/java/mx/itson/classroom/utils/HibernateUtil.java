@@ -10,7 +10,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 /**
- *
+ * Utility class for managing the Hibernate SessionFactory.
+ * 
  * @author pedrizquierdo
  */
 public class HibernateUtil {

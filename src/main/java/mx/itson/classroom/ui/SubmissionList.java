@@ -17,7 +17,8 @@ import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
 /**
- *
+ * This class extends and shows submission data in a table.
+ * 
  * @author luismorellb
  */
 public class SubmissionList extends javax.swing.JFrame {

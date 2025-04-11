@@ -13,7 +13,9 @@ import mx.itson.classroom.utils.HibernateUtil;
 import org.hibernate.Session;
 
 /**
- *
+ * Data Access Object (DAO) class for managing operations related to 
+ * the Student entity in the database.
+ * 
  * @author pedrizquierdo
  */
 public class StudentDAO {

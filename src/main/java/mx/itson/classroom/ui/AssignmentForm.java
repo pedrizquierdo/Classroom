@@ -14,7 +14,9 @@ import mx.itson.classroom.persistence.AssignmentDAO;
 import mx.itson.classroom.persistence.StudentDAO;
 
 /**
- *
+ * This class shows a window where the user can enter
+ * assignment information.
+ * 
  * @author luismorellb
  */
 public class AssignmentForm extends javax.swing.JDialog {

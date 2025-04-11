@@ -14,7 +14,8 @@ import mx.itson.classroom.persistence.StudentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
 /**
- *
+ * This class extends and shows student data in a table.
+ * 
  * @author luismorellb
  */
 public class StudentList extends javax.swing.JFrame {

@@ -15,7 +15,9 @@ import mx.itson.classroom.persistence.SubmissionDAO;
 
 
 /**
- *
+ * This class shows a window where the user can enter
+ * student information.
+ * 
  * @author luismorellb
  */
 public class StudentForm extends javax.swing.JDialog {
