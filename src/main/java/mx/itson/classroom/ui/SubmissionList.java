@@ -98,6 +98,11 @@ public class SubmissionList extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Delete submission");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit submission");
 
@@ -108,7 +113,7 @@ public class SubmissionList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -210,6 +215,26 @@ public class SubmissionList extends javax.swing.JFrame {
         studentList.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnStudentActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+       
+        int renglon = tblSubmissions.getSelectedRow();
+        int idSubmission = Integer.parseInt(tblSubmissions.getModel().getValueAt(renglon, 0).toString());
+            Submission s = new Submission();
+                s.setId(idSubmission);
+        
+        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el registro?", "Eliminar registro", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        
+        if (SubmissionDAO.delete(s)) {
+            JOptionPane.showMessageDialog(this, "El registro se eliminó con éxito", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            loadSubmissions();
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+        
+    
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void loadSubmissions(){
         List<Submission> submissions = SubmissionDAO.getAll();
