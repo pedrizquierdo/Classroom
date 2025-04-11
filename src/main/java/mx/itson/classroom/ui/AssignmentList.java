@@ -5,6 +5,7 @@
 package mx.itson.classroom.ui;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.SubmissionDAO;
@@ -21,6 +22,8 @@ public class AssignmentList extends javax.swing.JFrame {
     public AssignmentList() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -112,7 +115,43 @@ public class AssignmentList extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        // TODO add your handling code here:
+        
+        int selectedRow = tblAssignments.getSelectedRow();
+
+        if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Select assignment from table.");
+        return;
+        }
+
+        int modelRow = tblAssignments.convertRowIndexToModel(selectedRow);
+        DefaultTableModel model = (DefaultTableModel) tblAssignments.getModel();
+
+        int assignmentId = (int) model.getValueAt(modelRow, 0);
+        String assignmentTitle = (String) model.getValueAt(modelRow, 1);
+
+        // Obtener la cantidad de submissions
+        int count = SubmissionDAO.countByAssignment(assignmentId);
+
+        // Obtener los nombres de los estudiantes
+        List<String> studentNames = SubmissionDAO.getStudentNamesByAssignment(assignmentId);
+
+        // Construir el mensaje
+        StringBuilder message = new StringBuilder();
+        message.append("Assignment \"").append(assignmentTitle).append("\" has ").append(count).append(" submission(s).\n\n");
+               
+
+        if (studentNames.isEmpty()) {
+            message.append("No students have submitted yet.");
+            } else {
+                message.append("Students who submitted:\n");
+                for (String name : studentNames) {
+                message.append("- ").append(name).append("\n");
+    }
+}
+
+// Mostrar el mensaje
+JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JOptionPane.INFORMATION_MESSAGE);
+        
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed

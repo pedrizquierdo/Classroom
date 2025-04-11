@@ -7,6 +7,7 @@ package mx.itson.classroom.persistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
+import mx.itson.classroom.entities.Assignment;
 import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.utils.HibernateUtil;
 import org.hibernate.Session;
@@ -48,4 +49,57 @@ public class SubmissionDAO {
         }
         return result;
     }
+    
+    public static int countByAssignment(int assignmentId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Long count = session.createQuery(
+        "SELECT COUNT(s) FROM Submission s WHERE s.assignment.id = :assignmentId", Long.class)
+        .setParameter("assignmentId", assignmentId)
+        .uniqueResult();
+    session.close();
+    return count.intValue();
+}
+    
+    public static boolean hasStudentSubmitted(int studentId, int assignmentId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Long count = session.createQuery(
+        "SELECT COUNT(s) FROM Submission s WHERE s.student.id = :studentId AND s.assignment.id = :assignmentId", Long.class)
+        .setParameter("studentId", studentId)
+        .setParameter("assignmentId", assignmentId)
+        .uniqueResult();
+    session.close();
+    return count > 0;
+}
+    
+    public static List<String> getStudentNamesByAssignment(int assignmentId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    List<String> names = session.createQuery(
+        "SELECT DISTINCT s.student.name FROM Submission s WHERE s.assignment.id = :id", String.class)
+        .setParameter("id", assignmentId)
+        .getResultList();
+    session.close();
+    return names;
+}
+    
+    public static List<Object[]> getSubmissionsByStudent(int studentId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    List<Object[]> submissions = session.createQuery(
+            "SELECT s.assignment.title, s.file_name FROM Submission s WHERE s.student.id = :studentId", Object[].class)
+            .setParameter("studentId", studentId)
+            .getResultList();
+    session.close();
+    return submissions;
+}
+    
+    public static Assignment getAssignmentBySubmission(int submissionId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    Assignment assignment = (Assignment) session.createQuery(
+            "SELECT s.assignment FROM Submission s WHERE s.id = :submissionId")
+            .setParameter("submissionId", submissionId)
+            .uniqueResult();
+    session.close();
+    return assignment;
+}
+
+    
 }

@@ -4,8 +4,13 @@
  */
 package mx.itson.classroom.ui;
 
+import java.util.Date;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import mx.itson.classroom.entities.Assignment;
 import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
@@ -60,7 +65,7 @@ public class SubmissionList extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("SUBMISSION SECTION");
 
-        btnSelect.setText("See Students");
+        btnSelect.setText("Check delivery");
         btnSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelectActionPerformed(evt);
@@ -112,7 +117,39 @@ public class SubmissionList extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
-        // TODO add your handling code here:
+        
+        int selectedRow = tblSubmissions.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Select a submission from the table.");
+        return;
+    }
+
+    // Convertir la fila seleccionada en un índice de modelo
+    int modelRow = tblSubmissions.convertRowIndexToModel(selectedRow);
+    DefaultTableModel model = (DefaultTableModel) tblSubmissions.getModel();
+
+    // Obtener los datos de la fila seleccionada
+    int submissionId = (int) model.getValueAt(modelRow, 0); // ID de la submission
+    Date submissionDate = (Date) model.getValueAt(modelRow, 1); // Fecha de la submission
+    String assignmentTitle = (String) model.getValueAt(modelRow, 4); // Título del assignment
+
+    // Obtener el assignment relacionado con esta submission
+    Assignment assignment = SubmissionDAO.getAssignmentBySubmission(submissionId); // Asegúrate de que este método esté disponible
+
+    // Obtener la fecha límite del assignment
+    Date dueDate = assignment.getDue_date();
+
+    // Verificar si la submission fue entregada a tiempo
+    boolean isOnTime = !submissionDate.after(dueDate);
+
+    // Crear el mensaje a mostrar
+    String message = (isOnTime) ? "The submission for \"" + assignmentTitle + "\" was delivered on time."
+                                : "The submission for \"" + assignmentTitle + "\" was delivered late.";
+
+    // Mostrar el mensaje en un JOptionPane con el icono de reloj
+    JOptionPane.showMessageDialog(this, message, "Submission Status", JOptionPane.INFORMATION_MESSAGE);
+        
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed

@@ -5,6 +5,7 @@
 package mx.itson.classroom.ui;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.SubmissionDAO;
@@ -68,6 +69,11 @@ public class StudentList extends javax.swing.JFrame {
         jLabel1.setText("STUDENTS SECTION");
 
         btnSelect.setText("Select student");
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,6 +123,46 @@ public class StudentList extends javax.swing.JFrame {
         loadStudents();
         
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        
+        int selectedRow = tblStudents.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Select a student from the table.");
+        return;
+    }
+
+    // Convertir la fila seleccionada en un índice de modelo
+    int modelRow = tblStudents.convertRowIndexToModel(selectedRow);
+    DefaultTableModel model = (DefaultTableModel) tblStudents.getModel();
+
+    // Obtener el ID del estudiante seleccionado y su nombre
+    int studentId = (int) model.getValueAt(modelRow, 0); // ID del estudiante
+    String studentName = (String) model.getValueAt(modelRow, 1); // Nombre del estudiante
+
+    // Obtener las submissions realizadas por este estudiante
+    List<Object[]> submissions = SubmissionDAO.getSubmissionsByStudent(studentId);
+
+    // Construir el mensaje con la información de las submissions
+    StringBuilder message = new StringBuilder();
+    message.append("Student: ").append(studentName).append("\n\n");
+
+    if (submissions.isEmpty()) {
+        message.append("No submissions found.");
+    } else {
+        message.append("Assignments Submitted:\n");
+        for (Object[] submission : submissions) {
+            message.append("Assignment: ").append(submission[0]) // Título del assignment
+                    .append(" | File Name: ").append(submission[1]) // file_name
+                    .append("\n");
+        }
+    }
+
+    // Mostrar el mensaje en un JOptionPane
+    JOptionPane.showMessageDialog(this, message.toString(), "Student Submission Details", JOptionPane.INFORMATION_MESSAGE);
+        
+    }//GEN-LAST:event_btnSelectActionPerformed
 
     
     private void loadStudents(){
