@@ -49,4 +49,36 @@ public class AssignmentDAO {
         }
         return result;
     }
+
+     public static boolean delete(Assignment a) {
+    boolean result = false;
+    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.delete(a);
+        session.getTransaction().commit();
+        result = true;
+
+    } catch (Exception ex) {
+        System.err.println("Ocurrió un error al eliminar: " + ex.getMessage());
+    }
+    return result;
+}
+
+    public static boolean edit(Assignment a) {
+    boolean result = false;
+    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.update(a);
+        session.getTransaction().commit();
+        result = true;
+
+    } catch (Exception ex) {
+        System.err.println("Ocurrió un error al actualizar: " + ex.getMessage());
+    }
+    return result;
+}
 }
