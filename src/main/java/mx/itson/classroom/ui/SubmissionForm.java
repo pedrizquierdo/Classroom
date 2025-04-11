@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import mx.itson.classroom.entities.Assignment;
 import mx.itson.classroom.entities.Student;
 import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.persistence.AssignmentDAO;
+import mx.itson.classroom.persistence.StudentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
 /**
@@ -35,17 +37,17 @@ public class SubmissionForm extends javax.swing.JDialog {
     }
 
         public void loadStudents(){
-        List<Submission> submissions = SubmissionDAO.getAll();
-        for (Submission s : submissions) {
-            cmbStudents.addItem(s.getStudent().getName());
+        List<Student> students = StudentDAO.getAll();
+        for (Student s : students) {
+            cmbStudents.addItem(s.getName());
             
         }
     }
         
     public void loadAssignments(){
-        List<Submission> submissions = SubmissionDAO.getAll();
-        for (Submission s : submissions) {
-            cmbAssignments.addItem(s.getAssignment().getTitle());
+            List<Assignment> assignments = AssignmentDAO.getAll();
+        for (Assignment a : assignments) {
+            cmbAssignments.addItem(a.getTitle());
             
         }
     }    
