@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import mx.itson.classroom.entities.Assignment;
 import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.SubmissionDAO;
@@ -209,7 +210,10 @@ public class SubmissionList extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         loadSubmissions();
-        tblSubmissions.removeColumn(tblSubmissions.getColumnModel().getColumn(0));
+        TableColumn column = tblSubmissions.getColumnModel().getColumn(0);
+        column.setMinWidth(0);
+        column.setMaxWidth(0);
+        column.setPreferredWidth(0);
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignmentActionPerformed
@@ -268,9 +272,11 @@ public class SubmissionList extends javax.swing.JFrame {
     for (Submission s : submissions) {
         model.addRow(new Object[]{
             s.getId(),
+            s.getDate(),
             s.getFile_name(),
             s.getStudent().getName(), // o como quieras mostrarlo
             s.getAssignment().getTitle()
+                
         });
     }
     }   
