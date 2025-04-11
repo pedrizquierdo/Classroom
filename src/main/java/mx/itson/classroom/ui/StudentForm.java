@@ -5,9 +5,13 @@
 package mx.itson.classroom.ui;
 
 import static java.lang.Integer.parseInt;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import mx.itson.classroom.entities.Assignment;
 import mx.itson.classroom.entities.Student;
+import mx.itson.classroom.entities.Submission;
 import mx.itson.classroom.persistence.StudentDAO;
+import mx.itson.classroom.persistence.SubmissionDAO;
 
 
 /**
@@ -16,13 +20,32 @@ import mx.itson.classroom.persistence.StudentDAO;
  */
 public class StudentForm extends javax.swing.JDialog {
 
+    private Student student = null;
+    
     /**
      * Creates new form StudentForm
      */
-    public StudentForm(java.awt.Frame parent, boolean modal) {
+    public StudentForm(java.awt.Frame parent, boolean modal, Student student) {
         super(parent, modal);
         initComponents();
+        Thread thread = new Thread(() -> {
+        
+    });
+    thread.start();
+    this.student = student;
+
+    if (student != null) {
+        loadStudent(student);
     }
+    }
+    
+    public void loadStudent(Student s) {
+    txtName.setText(s.getName());
+    txtEmail.setText(s.getEmail());
+    txtIdColt.setText(Integer.toString(s.getId_colt()));
+}
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,28 +134,28 @@ public class StudentForm extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        try{
-        
-        Student st = new Student();
-        
-        st.setName(txtName.getText());
-        st.setEmail(txtEmail.getText());
-        st.setId_colt(parseInt(txtIdColt.getText()));
-        
-   
-    
-    boolean result = StudentDAO.save(st);
+        try {
+        if (student == null) {
+            student = new Student(); 
+        }
 
-    
-    if (result) {
-        JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-    } else {    
-        JOptionPane.showMessageDialog(this, "Un error a ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    } catch(Exception ex){
-        System.err.println("Ocurrio un error inesperado: " + ex.getMessage());
+        student.setName(txtName.getText());
+        student.setEmail(txtEmail.getText());
+        student.setId_colt(parseInt(txtIdColt.getText()));
+
+        boolean result = (student.getId() == 0) 
+            ? StudentDAO.save(student) 
+            : StudentDAO.edit(student);
+
+        if (result) {
+            JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Un error ha ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception ex) {
+        System.err.println("Ocurrió un error inesperado: " + ex.getMessage());
     }
         
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -171,7 +194,7 @@ public class StudentForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                StudentForm dialog = new StudentForm(new javax.swing.JFrame(), true);
+                StudentForm dialog = new StudentForm(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

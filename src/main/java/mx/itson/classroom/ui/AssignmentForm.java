@@ -20,7 +20,7 @@ public class AssignmentForm extends javax.swing.JDialog {
     /**
      * Creates new form AssignmentForm
      */
-    public AssignmentForm(java.awt.Frame parent, boolean modal) {
+    public AssignmentForm(java.awt.Frame parent, boolean modal, Assignment assignment) {
         super(parent, modal);
         initComponents();
     }
@@ -164,7 +164,7 @@ public class AssignmentForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AssignmentForm dialog = new AssignmentForm(new javax.swing.JFrame(), true);
+                AssignmentForm dialog = new AssignmentForm(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
