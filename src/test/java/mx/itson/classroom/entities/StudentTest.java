@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author alang
+ * @author pedrizquierdo
  */
 public class StudentTest {
     
@@ -36,7 +36,7 @@ public class StudentTest {
     public void tearDown() {
     }
 
-    /**
+   /**
      * Test of toString method, of class Student.
      */
     @Test
@@ -151,5 +151,7 @@ public class StudentTest {
         instance.setId_colt(id_colt);
         
     }
+    
+
     
 }

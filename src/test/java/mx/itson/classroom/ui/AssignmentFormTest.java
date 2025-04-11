@@ -4,6 +4,7 @@
  */
 package mx.itson.classroom.ui;
 
+import mx.itson.classroom.entities.Assignment;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author alang
+ * @author pedrizquierdo
  */
 public class AssignmentFormTest {
     
@@ -34,6 +35,19 @@ public class AssignmentFormTest {
     
     @AfterEach
     public void tearDown() {
+    }
+
+    /**
+     * Test of loadAssignment method, of class AssignmentForm.
+     */
+    @Test
+    public void testLoadAssignment() {
+        System.out.println("loadAssignment");
+        Assignment a = null;
+        AssignmentForm instance = null;
+        instance.loadAssignment(a);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**

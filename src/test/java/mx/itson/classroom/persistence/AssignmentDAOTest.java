@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author alang
+ * @author pedrizquierdo
  */
 public class AssignmentDAOTest {
     

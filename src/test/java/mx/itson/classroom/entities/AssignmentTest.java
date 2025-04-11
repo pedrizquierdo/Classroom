@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author alang
+ * @author pedrizquierdo
  */
 public class AssignmentTest {
     
-   
-    
+    public AssignmentTest() {
+    }
     
     @BeforeAll
     public static void setUpClass() {
@@ -153,5 +153,6 @@ public class AssignmentTest {
         
     }
     
+
     
 }
