@@ -95,8 +95,18 @@ public class StudentList extends javax.swing.JFrame {
         });
 
         btnDelete.setText("Delete student");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit student");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,7 +222,30 @@ public class StudentList extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSubmissionActionPerformed
 
-    
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblStudents.getSelectedRow();
+        int idStudent = Integer.parseInt(tblStudents.getModel().getValueAt(selectedRow, 0).toString());
+            Student s = new Student();
+                s.setId(idStudent);
+        
+        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el registro?", "Eliminar registro", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        
+        if (StudentDAO.delete(s)) {
+            JOptionPane.showMessageDialog(this, "El registro se eliminó con éxito", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            loadStudents();
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        StudentForm form = new StudentForm(this, true);
+                form.setVisible(true);
+
+                    loadStudents();
+    }//GEN-LAST:event_btnEditActionPerformed
+
     private void loadStudents(){
         List<Student> students = StudentDAO.getAll();
         DefaultTableModel modelo = (DefaultTableModel)tblStudents.getModel();

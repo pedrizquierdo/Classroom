@@ -227,11 +227,28 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
     }//GEN-LAST:event_btnSubmissionActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        
+        int selectedRow = tblAssignments.getSelectedRow();
+        int idAssignment = Integer.parseInt(tblAssignments.getModel().getValueAt(selectedRow, 0).toString());
+            Assignment a = new Assignment();
+                a.setId(idAssignment);
+        
+        if (JOptionPane.showConfirmDialog(this, "¿Está seguro que desea eliminar el registro?", "Eliminar registro", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        
+        if (AssignmentDAO.delete(a)) {
+            JOptionPane.showMessageDialog(this, "El registro se eliminó con éxito", "Registro eliminado", JOptionPane.INFORMATION_MESSAGE);
+            loadAssignments();
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        AssignmentForm form = new AssignmentForm(this, true);
+                form.setVisible(true);
+
+                    loadAssignments();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void loadAssignments(){

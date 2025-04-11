@@ -105,6 +105,11 @@ public class SubmissionList extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Edit submission");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,6 +240,13 @@ public class SubmissionList extends javax.swing.JFrame {
         
     
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        SubmissionForm form = new SubmissionForm(this, true);
+                form.setVisible(true);
+
+                    loadSubmissions();
+    }//GEN-LAST:event_btnEditActionPerformed
 
     private void loadSubmissions(){
         List<Submission> submissions = SubmissionDAO.getAll();
