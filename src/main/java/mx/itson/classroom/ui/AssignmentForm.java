@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import mx.itson.classroom.entities.Assignment;
+import mx.itson.classroom.entities.Student;
 import mx.itson.classroom.persistence.AssignmentDAO;
+import mx.itson.classroom.persistence.StudentDAO;
 
 /**
  *
@@ -17,13 +19,30 @@ import mx.itson.classroom.persistence.AssignmentDAO;
  */
 public class AssignmentForm extends javax.swing.JDialog {
 
+    private Assignment assignment = null;
+    
     /**
      * Creates new form AssignmentForm
      */
     public AssignmentForm(java.awt.Frame parent, boolean modal, Assignment assignment) {
         super(parent, modal);
         initComponents();
+        Thread thread = new Thread(() -> {
+        
+    });
+    thread.start();
+    this.assignment = assignment;
+
+    if (assignment != null) {
+        loadAssignment(assignment);
     }
+    }
+    
+    public void loadAssignment(Assignment a) {
+    txtTitle.setText(a.getTitle());
+    txtDescription.setText(a.getDescription());
+    txtDueDate.setText(a.getDue_date().toString());
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,30 +125,31 @@ public class AssignmentForm extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        try{
-        
-        Assignment a = new Assignment();
-        
-        a.setTitle(txtTitle.getText());
-        a.setDescription(txtDescription.getText());
+        try {
+        if (assignment == null) {
+            assignment = new Assignment();
+        }
+
+        assignment.setTitle(txtTitle.getText());
+        assignment.setDescription(txtDescription.getText());
         String txtDate = txtDueDate.getText();
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(txtDate);
-        a.setDue_date(date);
-        
+        assignment.setDue_date(date);
 
-    boolean result = AssignmentDAO.save(a);
+        boolean result = (assignment.getId() == 0) 
+                ? AssignmentDAO.save(assignment) 
+                : AssignmentDAO.edit(assignment);
 
-    
-    if (result) {
-        JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-    } else {    
-        JOptionPane.showMessageDialog(this, "Un error a ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    } catch(Exception ex){
-        System.err.println("Ocurrio un error inesperado: " + ex.getMessage());
+        if (result) {
+            JOptionPane.showMessageDialog(this, "El registro se ha realizado con éxito.", "Registro Guardado", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Un error ha ocurrido al intentar realizar el registro.", "Error de Guardado", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch(Exception ex) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
         
     }//GEN-LAST:event_btnSaveActionPerformed

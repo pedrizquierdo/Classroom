@@ -26,7 +26,8 @@ public class AssignmentList extends javax.swing.JFrame {
         initComponents();
     }
     
-    List<Assignment> assignments = new ArrayList<>();
+    List<Assignment> assignments = AssignmentDAO.getAll(); 
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -256,12 +257,12 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
         form.setVisible(true);
         loadAssignments();
     } else {
-        JOptionPane.showMessageDialog(this, "Selecciona una Submission para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Selecciona una Assignment para editar.", "Nada seleccionado", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void loadAssignments(){
-        List<Assignment> assignments = AssignmentDAO.getAll();
+        assignments = AssignmentDAO.getAll();
         DefaultTableModel model = (DefaultTableModel)tblAssignments.getModel();
         model.setRowCount(0);
         

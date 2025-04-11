@@ -268,6 +268,7 @@ public class SubmissionList extends javax.swing.JFrame {
     for (Submission s : submissions) {
         model.addRow(new Object[]{
             s.getId(),
+            s.getDate(),
             s.getFile_name(),
             s.getStudent().getName(), // o como quieras mostrarlo
             s.getAssignment().getTitle()
