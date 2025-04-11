@@ -218,8 +218,8 @@ public class SubmissionList extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
        
-        int renglon = tblSubmissions.getSelectedRow();
-        int idSubmission = Integer.parseInt(tblSubmissions.getModel().getValueAt(renglon, 0).toString());
+        int selectedRow = tblSubmissions.getSelectedRow();
+        int idSubmission = Integer.parseInt(tblSubmissions.getModel().getValueAt(selectedRow, 0).toString());
             Submission s = new Submission();
                 s.setId(idSubmission);
         

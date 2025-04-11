@@ -39,7 +39,7 @@ public class SubmissionForm extends javax.swing.JDialog {
         public void loadStudents(){
         List<Student> students = StudentDAO.getAll();
         for (Student s : students) {
-            cmbStudents.addItem(s.getName());
+            cmbStudents.addItem(s);
             
         }
     }
@@ -47,7 +47,7 @@ public class SubmissionForm extends javax.swing.JDialog {
     public void loadAssignments(){
             List<Assignment> assignments = AssignmentDAO.getAll();
         for (Assignment a : assignments) {
-            cmbAssignments.addItem(a.getTitle());
+            cmbAssignments.addItem(a);
             
         }
     }    
@@ -208,8 +208,8 @@ public class SubmissionForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<String> cmbAssignments;
-    private javax.swing.JComboBox<String> cmbStudents;
+    private javax.swing.JComboBox<Assignment> cmbAssignments;
+    private javax.swing.JComboBox<Student> cmbStudents;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

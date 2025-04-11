@@ -16,7 +16,11 @@ import javax.persistence.Id;
 
 @Entity
 public class Student {
-
+    
+@Override
+    public String toString() {
+        return this.name;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -80,10 +84,7 @@ public class Student {
         this.id_colt = id_colt;
     }
     
-    @Override
-    public String toString() {
-        return this.name;
-    }
+    
     
     
 }
