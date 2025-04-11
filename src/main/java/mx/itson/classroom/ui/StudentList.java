@@ -7,7 +7,8 @@ package mx.itson.classroom.ui;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.entities.Student;
+import mx.itson.classroom.persistence.StudentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
 /**
@@ -147,6 +148,7 @@ public class StudentList extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
     
         loadStudents();
+        tblStudents.removeColumn(tblStudents.getColumnModel().getColumn(0));
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -212,19 +214,19 @@ public class StudentList extends javax.swing.JFrame {
 
     
     private void loadStudents(){
-        List<Submission> submissions = SubmissionDAO.getAll();
+        List<Student> students = StudentDAO.getAll();
         DefaultTableModel modelo = (DefaultTableModel)tblStudents.getModel();
         modelo.setRowCount(0);
         
-        for(Submission s: submissions ){
+        for(Student s: students ){
             modelo.addRow(new Object[] {
-            s.getStudent().getId(),
-            s.getStudent().getName(),
-            s.getStudent().getEmail(),
-            s.getStudent().getId_colt()
+            s.getId(),
+            s.getName(),
+            s.getEmail(),
+            s.getId_colt()
             });
         }
-        tblStudents.removeColumn(tblStudents.getColumnModel().getColumn(0));
+        
     }
     
     /**

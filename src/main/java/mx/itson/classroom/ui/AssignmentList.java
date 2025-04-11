@@ -7,7 +7,8 @@ package mx.itson.classroom.ui;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import mx.itson.classroom.entities.Submission;
+import mx.itson.classroom.entities.Assignment;
+import mx.itson.classroom.persistence.AssignmentDAO;
 import mx.itson.classroom.persistence.SubmissionDAO;
 
 /**
@@ -209,7 +210,7 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         loadAssignments();
-        
+        tblAssignments.removeColumn(tblAssignments.getColumnModel().getColumn(0));
         
     }//GEN-LAST:event_formWindowOpened
 
@@ -234,19 +235,19 @@ JOptionPane.showMessageDialog(this, message.toString(), "Assignment Details", JO
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void loadAssignments(){
-        List<Submission> submissions = SubmissionDAO.getAll();
+        List<Assignment> assignments = AssignmentDAO.getAll();
         DefaultTableModel modelo = (DefaultTableModel)tblAssignments.getModel();
         modelo.setRowCount(0);
         
-        for(Submission s: submissions ){
+        for(Assignment a: assignments ){
             modelo.addRow(new Object[] {
-            s.getAssignment().getId(),
-            s.getAssignment().getTitle(),
-            s.getAssignment().getDescription(),
-            s.getDate()
+            a.getId(),
+            a.getTitle(),
+            a.getDescription(),
+            a.getDue_date()
             });
         }
-        tblAssignments.removeColumn(tblAssignments.getColumnModel().getColumn(0));
+        
     }
     
     /**

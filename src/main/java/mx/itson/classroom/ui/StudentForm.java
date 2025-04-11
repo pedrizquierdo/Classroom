@@ -5,13 +5,10 @@
 package mx.itson.classroom.ui;
 
 import static java.lang.Integer.parseInt;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import mx.itson.classroom.entities.Student;
-import mx.itson.classroom.entities.Submission;
-import mx.itson.classroom.persistence.SubmissionDAO;
+import mx.itson.classroom.persistence.StudentDAO;
+
 
 /**
  *
@@ -37,10 +34,10 @@ public class StudentForm extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JLabel();
+        lblMail = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtFileName = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         txtIdColt = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -49,9 +46,15 @@ public class StudentForm extends javax.swing.JDialog {
 
         jLabel2.setText("Name:");
 
-        txtEmail.setText("Email:");
+        lblMail.setText("Email:");
 
         jLabel4.setText("id_colt:");
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -73,11 +76,11 @@ public class StudentForm extends javax.swing.JDialog {
                     .addComponent(btnSave)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel4)
-                        .addComponent(txtEmail)
+                        .addComponent(lblMail)
                         .addComponent(jLabel2)
                         .addComponent(jLabel1)
                         .addComponent(txtName)
-                        .addComponent(txtFileName)
+                        .addComponent(txtEmail)
                         .addComponent(txtIdColt, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
@@ -91,9 +94,9 @@ public class StudentForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addComponent(txtEmail)
+                .addComponent(lblMail)
                 .addGap(15, 15, 15)
-                .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -110,19 +113,15 @@ public class StudentForm extends javax.swing.JDialog {
 
         try{
         
-    
-        Submission s = new Submission();
-        
         Student st = new Student();
         
         st.setName(txtName.getText());
         st.setEmail(txtEmail.getText());
         st.setId_colt(parseInt(txtIdColt.getText()));
-        s.setStudent(st);
         
    
     
-    boolean result = SubmissionDAO.save(s);
+    boolean result = StudentDAO.save(st);
 
     
     if (result) {
@@ -137,6 +136,10 @@ public class StudentForm extends javax.swing.JDialog {
     }
         
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,8 +188,8 @@ public class StudentForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel txtEmail;
-    private javax.swing.JTextField txtFileName;
+    private javax.swing.JLabel lblMail;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIdColt;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables

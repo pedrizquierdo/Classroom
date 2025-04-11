@@ -19,19 +19,19 @@ import org.hibernate.Session;
 public class SubmissionDAO {
     
     public static List<Submission> getAll(){
-        List<Submission> animales = new ArrayList<>();
+        List<Submission> submissions = new ArrayList<>();
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
             CriteriaQuery<Submission> criteriaQuery =
                     session.getCriteriaBuilder().createQuery(Submission.class);
             criteriaQuery.from(Submission.class);
             
-            animales = session.createQuery(criteriaQuery).getResultList();
+            submissions = session.createQuery(criteriaQuery).getResultList();
         }catch(Exception ex){
             System.err.println("Ocurrio un error" + ex.getMessage());
             
         }
-        return animales;
+        return submissions;
     }
     
     public static boolean save(Submission s) {

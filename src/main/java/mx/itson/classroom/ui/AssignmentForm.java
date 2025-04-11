@@ -9,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import mx.itson.classroom.entities.Assignment;
-import mx.itson.classroom.entities.Submission;
-import mx.itson.classroom.persistence.SubmissionDAO;
+import mx.itson.classroom.persistence.AssignmentDAO;
 
 /**
  *
@@ -109,9 +108,6 @@ public class AssignmentForm extends javax.swing.JDialog {
 
         try{
         
-    
-        Submission s = new Submission();
-        
         Assignment a = new Assignment();
         
         a.setTitle(txtTitle.getText());
@@ -120,11 +116,9 @@ public class AssignmentForm extends javax.swing.JDialog {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = dateFormat.parse(txtDate);
         a.setDue_date(date);
-        s.setAssignment(a);
         
-   
-    
-    boolean result = SubmissionDAO.save(s);
+
+    boolean result = AssignmentDAO.save(a);
 
     
     if (result) {
