@@ -50,6 +50,39 @@ public class SubmissionDAO {
         return result;
     }
     
+    public static boolean delete(Submission s) {
+    boolean result = false;
+    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.delete(s);
+        session.getTransaction().commit();
+        result = true;
+
+    } catch (Exception ex) {
+        System.err.println("Ocurrió un error al eliminar: " + ex.getMessage());
+    }
+    return result;
+}
+
+    public static boolean edit(Submission s) {
+    boolean result = false;
+    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.update(s);
+        session.getTransaction().commit();
+        result = true;
+
+    } catch (Exception ex) {
+        System.err.println("Ocurrió un error al actualizar: " + ex.getMessage());
+    }
+    return result;
+}
+
+    
     public static int countByAssignment(int assignmentId) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Long count = session.createQuery(

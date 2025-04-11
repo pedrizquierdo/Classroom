@@ -196,6 +196,7 @@ public class SubmissionList extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         loadSubmissions();
+        tblSubmissions.removeColumn(tblSubmissions.getColumnModel().getColumn(0));
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignmentActionPerformed
@@ -224,7 +225,7 @@ public class SubmissionList extends javax.swing.JFrame {
             s.getAssignment().getTitle()
             });
         }
-        tblSubmissions.removeColumn(tblSubmissions.getColumnModel().getColumn(0));
+        
     }
     
     /**
